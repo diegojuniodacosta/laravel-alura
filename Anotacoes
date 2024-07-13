@@ -1,0 +1,121 @@
+
+Entendendo sobre o envio de email
+- Para desenvolvimento podemos utilizar MailTrap
+- Temos que criar a conta
+- Inserir no .env os dados do MailTrap
+
+---------------------------------------------------------------------------------
+
+Entendendo sobre filas
+
+- Formas de enfileirar
+
+- Síncrona
+    - Aguarda a finalização da tarefa
+
+Exemplo: (forma síncrona)
+- Quando executa na mesma hora
+
+- Assíncrona
+    - Informa que tem uma tarefa para ser executada
+    - Não aguarda o fim desta tarefa
+    - Continua executando outras tarefas, enquanto esta está sendo feita
+
+Exemplo: (forma assíncrona)
+- Comunicação entre dois softwares
+- O Software A envia uma mensagem/evento informando que algo a ser feito e não aguarda
+o Software B
+- Assim o Software B realiza a tarefa
+
+-----------------------------------------------------------------------------------
+
+No Larável utilizamos o método 'queue'
+
+Com o método queue
+    - O e-mail é colocado na fila
+    - A tarefa fica salva em uma tabela 'job'
+
+    Rodamos o comando:
+    php artisan queue:table
+        - para criar a tabela jobs
+
+Ao chamar o método queue
+Irá processar o que está na tabela
+
+-------------------------------------------------------------------------------------
+
+Comando php artisan tinker
+- Ao rodar este comando, podemos no terminal acessar como por exemplo o banco de dados
+Com:
+DB::select('select * from users')
+
+Podemos acessar qualquer código
+
+--------------------------------------------------------------------------------------
+
+Podemos utilizar 'later' para agendamentos de jobs
+
+O Larer faz o mesmo que o queue
+POrém, com ele podemos configurar tempo entre jobs
+
+--------------------------------------------------------------------------------------
+
+Entendendo sobre Listener
+
+- Listener
+    - Ele fica escutando os eventos
+    - É um ouvinte do evento
+    - Assim que o ocorre o evento entra em ação
+    - Executa algo quando o evento acontece
+
+- Para criar um listener utilizamos o comando
+    - php artisan make:listener NomeListener
+
+- Inserimos a ação no método handle() do Listener
+
+- Na criação do Listener, podemos informar já o evento
+    - php artisan make:listener NomeListener -e NomeEvent
+        ou;
+    - php artisan make:listener NomeListener --event NomeEvent
+
+- Para colocar a execução dos listeners na fila
+- Temos que fazer o Listener implements ShouldQueue
+
+---------------------------------------------------------------------------------------
+
+Entendendo sobre Evento
+
+- Evento
+    - É o que acontece
+    - É a ação que acontece
+
+- Para criar um event utilizamos o comando
+    - php artisan make:event NomeEvent
+
+- Para dispachar o evento, utilizamos
+
+    - Event->dispatch()
+    - Irá enviar o evento
+
+
+---------------------------------------------------------------------------------------
+
+- Precisamos informar ao Larável para executar o listener quando o event for executado
+
+- Em EventServiceProvider, temos que informar no $listen []
+- Podemos inserir mais de um listener para o mesmo evento
+
+- Utilizamos:
+    - Registered $listen = [
+        NomeEvent::class => [
+            NomeListener::class,
+            NomeListener2::class,
+        ],
+    ];
+
+--------------------------------------------------------------------------------------
+
+
+
+
+
