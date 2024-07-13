@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EventsUtils;
 use App\Http\Requests\SeriesFormRequest;
+use App\Mail\SeriesCreated;
+use App\Mail\SeriesCreated2;
 use App\Models\Series;
+use App\Models\User;
 use App\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 
 class SeriesController extends Controller
 {
@@ -32,9 +38,24 @@ class SeriesController extends Controller
     {
         $serie = $this->repository->add($request);
 
+        // Podemos utilizar, seria a mesma coisa e nao ia utilizar event($seriesCreatedEvent)
+        // \App\Events\SeriesCreated::dispatch();
+        // Instanciando o evento
+        $seriesCreatedEvent = new \App\Events\SeriesCreated(
+            $serie->nome,
+            $serie->id,
+            $request->seasonsQty,
+            $request->episodesPerSeason,
+        );
+
+        // Vamos enviar o evento
+        // Utilizando o método event
+        event($seriesCreatedEvent);
+
         return to_route('series.index')
             ->with('mensagem.sucesso', "Série '{$serie->nome}' adicionada com sucesso");
     }
+
 
     public function destroy(Series $series)
     {
