@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Series;
+use App\Observers\SeriesCreatedObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
     /**
@@ -21,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
+        Series::observe(SeriesCreatedObserver::class);
     }
 }

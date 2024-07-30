@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\EventsUtils;
+use App\Events\SeriesDeleted;
 use App\Http\Requests\SeriesFormRequest;
+use App\Jobs\SeriesDeletedJob;
+use App\Jobs\SeriesUpdatedJob;
 use App\Mail\SeriesCreated;
 use App\Mail\SeriesCreated2;
 use App\Models\Series;
@@ -11,7 +14,9 @@ use App\Models\User;
 use App\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class SeriesController extends Controller
 {
@@ -38,10 +43,11 @@ class SeriesController extends Controller
     {
         // Para armazenar o arquivo em um local temporário, podemos utilizar o método store()
         // Foi salvo no diretório storage/app/public
-        $coverPath = $request->file('cover')
-            ->store('series_cover', 'public');
-
-        $request->coverPath = $coverPath;
+        if ($request->file('cover') !== null) {
+            $coverPath = $request->file('cover')
+                ->store('series_cover', 'public');
+            $request->coverPath = $coverPath;
+        }
 
         $serie = $this->repository->add($request);
 
@@ -72,6 +78,17 @@ class SeriesController extends Controller
 
     public function destroy(Series $series)
     {
+        // Dispara o evento para deleção do arquivo (Trabalhando com Listener)
+        /*if (isset($series->cover)){
+            SeriesDeleted::dispatch($series->cover);
+        }*/
+
+        // Dispara o evento para deleção do arquivo (Trabalhando com Job)
+        if (isset($series->cover)){
+            SeriesDeletedJob::dispatch($series->cover);
+        }
+
+
         $series->delete();
 
         return to_route('series.index')
@@ -86,7 +103,11 @@ class SeriesController extends Controller
     public function update(Series $series, SeriesFormRequest $request)
     {
         $series->fill($request->all());
-        $series->save();
+        $seriesSave = $series->save();
+
+        if ($seriesSave){
+            SeriesUpdatedJob::dispatch($series);
+        }
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "Série '{$series->nome}' atualizada com sucesso");

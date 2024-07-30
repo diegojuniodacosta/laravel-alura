@@ -131,6 +131,26 @@ Trabalhando com uploads de imagens com Laravel
 - Observação:
     - Para colocar um nome para o arquivo podemos utilizar storeAs()
 
+------------------------------------------------------------------------------------
+
+- Diretório Storage
+    - Não é um diretório acessível para todos (público)
+    - É um diretório apenas para quem tem acesso ao código
+
+- Podemos rodar um comando que cria um link simbólico e assim os arquivos poderão ser vistos
+    - php artisan storage:link
+    - Assim será criado um link simbólico e terá o link na pasta app/public
+
+------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
 
 

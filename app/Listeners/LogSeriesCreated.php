@@ -16,9 +16,7 @@ class LogSeriesCreated implements ShouldQueue
      * @return void
      */
     public function __construct()
-    {
-        //
-    }
+    {}
 
     /**
      * Handle the event.

@@ -25,8 +25,8 @@ class SeriesFormRequest extends FormRequest
     {
         return [
             'nome'              => ['required', 'min:2'],
-            'seasonsQty'        => ['required', 'integer', 'min:1'],
-            'episodesPerSeason' => ['required', 'integer', 'min:1'],
+            'seasonsQty'        => ['nullable', 'integer', 'min:1'],
+            'episodesPerSeason' => ['nullable', 'integer', 'min:1'],
             'cover'             => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif', 'max:2048']
         ];
     }
