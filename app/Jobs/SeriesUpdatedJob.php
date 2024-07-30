@@ -18,12 +18,7 @@ class SeriesUpdatedJob
     )
     {}
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         LogObserver::create([
             'event' => 'updatedJob',

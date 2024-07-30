@@ -143,9 +143,53 @@ Trabalhando com uploads de imagens com Laravel
 
 ------------------------------------------------------------------------------------
 
+- Neste projeto, foi aplicado:
+    - Listener
+    - Events
+    - Jobs
+    - Observer
+    - Envio de E-mail
+    - Repositories
+    - Views
+
+-------------------------------------------------------------------------------------
+
+- Entendendo sobre testes com o Larvel
+
+- O Larável já instala o phpunit por padrão
+    - podemos rodar:
+        - php vendor\bin\phpunit ou
+        - php artisan test
+
+- O TestCase inicializa a nossa aplicação
+- Assim conseguimos simular uma rota mesmo sem o servidor rodando
+
+- Para criar os testes, utilizamos:
+    - php artisan make:test
+
+- Para pegar uma instancia por exemplo do repository, utilizamos:
+    - $this->app->make(Repository::class)
+
+- Ao rodar os testes, é necessário criar um .env.testing para evitar
+que nos testes nosso banco de dados seja limpo
+
+- Por padrão, temos que criar o .env.testing na raíz do projeto
+- Assim nos testes, o Larável deixa de ler o .env e o .env.testing
+
+- Com SqLite, podemos usar o banco de dados em memória
+- No .env definimos:
+    - Para criar um banco de dados em memória para utilizar nos testes
+      DB_DATABASE=:memory:
 
 
+--------------------------------------------------------------------------------------
 
+Entendendo sobre DUSK
+
+- O Larável DUSK é para facilitar a escrita de testes end to end
+- É necessário estudar sobre o Selenium
+
+--------------------------------------------------------------------------------------
 
 
 
