@@ -11,7 +11,7 @@ class SeriesFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -24,9 +24,11 @@ class SeriesFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => ['required', 'min:2'],
-            'seasonsQty' => 'required|integer|min:1',
-            'episodesPerSeason' => 'required|integer|min:1',
+            'nome'              => ['required', 'min:2'],
+            'seasonsQty'        => ['required', 'integer', 'min:1'],
+            'episodesPerSeason' => ['required', 'integer', 'min:1'],
+            'cover'             => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif', 'max:2048']
         ];
     }
 }
+

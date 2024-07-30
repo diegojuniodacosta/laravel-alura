@@ -36,10 +36,24 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request)
     {
+        // Para armazenar o arquivo em um local temporário, podemos utilizar o método store()
+        // Foi salvo no diretório storage/app/public
+        $coverPath = $request->file('cover')
+            ->store('series_cover', 'public');
+
+        $request->coverPath = $coverPath;
+
         $serie = $this->repository->add($request);
 
         // Podemos utilizar, seria a mesma coisa e nao ia utilizar event($seriesCreatedEvent)
-        // \App\Events\SeriesCreated::dispatch();
+        // \App\Events\SeriesCreated::dispatch(
+        // $serie->nome,
+        // $serie->id,
+        // $request->seasonsQty,
+        // $request->episodesPerSeason,
+        //);
+
+
         // Instanciando o evento
         $seriesCreatedEvent = new \App\Events\SeriesCreated(
             $serie->nome,
@@ -47,7 +61,6 @@ class SeriesController extends Controller
             $request->seasonsQty,
             $request->episodesPerSeason,
         );
-
         // Vamos enviar o evento
         // Utilizando o método event
         event($seriesCreatedEvent);

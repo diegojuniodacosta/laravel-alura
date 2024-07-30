@@ -55,8 +55,8 @@ Podemos acessar qualquer código
 
 Podemos utilizar 'later' para agendamentos de jobs
 
-O Larer faz o mesmo que o queue
-POrém, com ele podemos configurar tempo entre jobs
+O Later faz o mesmo que o queue
+Porém, com ele podemos configurar tempo entre jobs
 
 --------------------------------------------------------------------------------------
 
@@ -78,8 +78,10 @@ Entendendo sobre Listener
         ou;
     - php artisan make:listener NomeListener --event NomeEvent
 
-- Para colocar a execução dos listeners na fila
-- Temos que fazer o Listener implements ShouldQueue
+- Para colocar a execução dos listeners na fila:
+    - Temos que fazer o Listener implements ShouldQueue
+    - Exemplo:
+        - class NomeListener implements ShouldQueue
 
 ---------------------------------------------------------------------------------------
 
@@ -114,6 +116,25 @@ Entendendo sobre Evento
     ];
 
 --------------------------------------------------------------------------------------
+
+Trabalhando com uploads de imagens com Laravel
+
+- Para pegar o arquivo na Controller utilizamos:
+    - $request->file('nomeCampo')
+
+- Para enviar arquivos temos que informar no html:
+    - enctype="multipart/form-data"
+
+- O ideal não é salvar a imagem no banco de dados
+- O ideal é salvar a imagem em algum caminho e salvar este caminho no banco de dados
+
+- Observação:
+    - Para colocar um nome para o arquivo podemos utilizar storeAs()
+
+
+
+
+
 
 
 
