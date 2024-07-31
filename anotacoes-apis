@@ -1,0 +1,155 @@
+Entendendo sobre API's
+
+Api's = funcionam como meio-de-campo (intermediadores) entre os dados e regras de
+negócios e o cliente (visualização do sistema)
+Ou seja, transferem os dados entre o banco de dados e o cliente
+
+API = Interface de programação de aplicações
+
+API = é uma forma de ter/fornecer acesso ao um conjunto de serviços
+
+------------------------------------------------------------------------------------
+
+Tipos de API
+
+- APIs WEB
+- APIs de código fonte
+
+------------------------------------------------------------------------------------
+
+- Formatos que as APIs que se apresentam
+    - RPC -> mais antigo
+    - Soap -> mais antigo
+    - REST -> mais utilizado atualmente
+           -> utiliza os verbos HTTP (get,post,put,etc)
+
+------------------------------------------------------------------------------------
+
+Vamos construir neste projeto uma API com Larável
+
+Endpoint = é uma url/ponto que conseguimos acessar a API
+
+Iremos utilizar o formato Aplication Json para transferência de dados
+
+------------------------------------------------------------------------------------
+
+- Definimos as rotas de APIs dentro de api.php
+
+- Toda rota que for definida dentro api.php já tem o prefixo api/
+- Assim, não precisamos informar api/ na rota
+- Exemplo:
+    - Route::get('/url')
+
+------------------------------------------------------------------------------------
+
+Interface Padrão HTTP
+
+GET /series             => Pegar todas as series
+GET /series/:id         => Pegar série específica
+POST /series            => Inserir nova série
+PUT /series/:id         => Atualizar uma série
+DELETE /series/:id      => Remover uma série
+
+PUT   = atualiza recurso por completo
+PATCH = atualiza parte do recurso
+
+-------------------------------------------------------------------------------------
+
+- Para informamos o formato, utilizamos:
+
+Cabeçalhos:
+
+    - Requisição:
+        - Accept: application/json
+
+    - Resposta
+        - Content-Type: application/json
+
+--------------------------------------------------------------------------------------
+
+Código de Status HTTP
+
+Classe                       Semântica
+2xx                 Indica que a requisição foi processada com sucesso
+
+3xx                 Indica ao cliente uma ação a ser tomada para que a
+                    requisição possa ser concluída
+
+4xx                 Indica erros na requisição causados pelo cliente
+
+5xx                 Indica que a requisição não foi concluída devido a erros
+                    ocorridos no servidor
+
+----------------------------------------------------------------------------------------
+
+REST = Representational State Transfer
+
+- Quando criamos a API no padrão REST estamos transferindo o estado de recurso
+
+----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
