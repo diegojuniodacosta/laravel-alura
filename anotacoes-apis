@@ -53,6 +53,9 @@ DELETE /series/:id      => Remover uma série
 PUT   = atualiza recurso por completo
 PATCH = atualiza parte do recurso
 
+OBSERVAÇÃO:
+- O PUT pode se comportar como POST
+
 -------------------------------------------------------------------------------------
 
 - Para informamos o formato, utilizamos:
@@ -88,17 +91,102 @@ REST = Representational State Transfer
 
 ----------------------------------------------------------------------------------------
 
+Sub-recursos
+
+- É quando buscamos informações de um recurso a partir de um outro recurso
+- Exemplo:
+    - Quando buscamos as temporadas a partir da série
+    - Na criação da rota utilizamos:
+        - localhost:8000/api/recursopai/idrecursopai/sub-recurso
 
 
+-----------------------------------------------------------------------------------------
 
+Dica sobre criar relação na Model
 
+- Temos o método:
+    - hasManyThrough
+    - Ele busca o recurso através de outro recurso
+    - Exemplo:
+        - Vamos buscar todos os episódios da série
+        - Assim, a partir da temporada teremos os epsódios da série
+        - return $this->hasManyThrough(Episode::class, Season::class)
 
+------------------------------------------------------------------------------------------
 
+Conceito Idempotência
 
+É uma propriedade de alguma operação que permite que ela seja executada várias
+vezes sem alterar o resultado
 
+Exemplo:
+- O verbo POST não é idempotente ou seja, ao enviar várias vezes a mesma requisição
+será criada várias vezes
 
+- O verbo PUT é idempotente ou seja, ao enviar várias vezes a mesma requisição
+    - se não existir, será criado
+    - se existir, será atualizado
+    - se já estiver atualizado, o valor não será alterado
 
+--------------------------------------------------------------------------------------------
 
+Entendendo sobre $casts da Model
+
+- Quando queremos mapear algum atributo e mudar o seu valor, podemos usar $castas na Model
+
+- Exemplo:
+    - protected $casts = [
+        'value' => 'boolean'
+    ]
+
+---------------------------------------------------------------------------------------------
+
+Podemos aplicar filtros na API REST
+- Os filtros seria passar os parâmetros no Postman
+
+- Exemplo:
+    - Aplicando o filtro nome
+    - http://localhost/api/series/?nome=Nome
+
+---------------------------------------------------------------------------------------------
+
+Implementando paginação
+
+- Podemos utilizar o método paginate() do Larável
+- Este método irá trazer os itens paginados do banco de dados
+- No método informamos quantos itens queremos por págia
+
+    -Exemplo:
+        - $query->paginate(perPage: 5);
+        - Para irmos para página 2, no Postman podemos passar como parâmetro page=2
+
+---------------------------------------------------------------------------------------------
+
+Entendendo sobre o pacote HATEOAS
+
+- Este pacote serve para utilizarmos os links das respostas do Larável
+- Exemplo:
+    - Ao utilizar o paginate(), o Larável retorna os links
+    - Com o HATEOAS podemos utilizar os links
+
+    -  "links": [
+              {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "active": false
+              },
+              {
+                  "url": "http://127.0.0.1:8000/api/series?page=1",
+                  "label": "1",
+                  "active": true
+              },
+              {
+                  "url": "http://127.0.0.1:8000/api/series?page=2",
+                  "label": "2",
+                  "active": false
+              },
+    ]
+----------------------------------------------------------------------------------------------
 
 
 
