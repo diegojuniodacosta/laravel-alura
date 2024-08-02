@@ -186,11 +186,34 @@ Entendendo sobre o pacote HATEOAS
                   "active": false
               },
     ]
+
+- Estudar mais sobre Pacote HATEOAS
 ----------------------------------------------------------------------------------------------
 
+- Entendendo sobre Stateless e JWT
 
+- Stateless = seria uma forma de login sem estado (sem armazenar sessão)
 
+- Autenticação por token
+    - O usuário envia o e-mail e senha, assim, e estando válido retornamos o token
+    - Este token o usuário pode armazenar e terá acesso ao sistema
 
+- JWT
+    - É um tipo de token
+    - Observação:
+        - Estudar sobre sobre implementar JWT
+
+----------------------------------------------------------------------------------------------
+
+- Entendendo sobre Sanctum
+
+- Este pacote ja vem instalado no Larável por padrão
+- É necessário rodar uma migrate
+- Ele armazena no banco de dados um token para o usuário
+
+- Utilizando:
+    Route::middleware('auth:sanctum')
+    - Iremos exigir o token para acessar o Sistema
 
 
 
