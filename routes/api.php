@@ -67,7 +67,7 @@ Route::post('/login', function (Request $request){
     // Buscando o usuário
     $user = Auth::user();
 
-    // Criando o token para o usuário
+    // Criando o token para o usuário com Sanctum
     $token = $user->createToken('token');
 
     // Retornando o token em Json

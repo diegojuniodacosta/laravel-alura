@@ -215,7 +215,25 @@ Entendendo sobre o pacote HATEOAS
     Route::middleware('auth:sanctum')
     - Iremos exigir o token para acessar o Sistema
 
+---------------------------------------------------------------------------
 
+Autenticação x Autorização
+
+- Autenticação:
+    - É para identificar o usuário
+
+- Autorização:
+    - Permitir que o usuário execute alguma tarefa
+
+
+Deletando tokens
+$user->tokens()->delete;
+
+Criando permissão
+$token = $user->createToken('token', ['is_admin']);
+
+- Estudar sobre Swoole / Laravel Octane
+-----------------------------------------------------------------------------
 
 
 
